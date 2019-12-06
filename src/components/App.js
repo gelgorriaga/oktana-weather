@@ -47,7 +47,8 @@ class App extends Component {
         this.setState({ ok: false });
       }
     } catch (e) {
-      alert(`City not found`);
+      this.setState({ ok: false });
+      console.log(`City not found`);
     }
   };
 

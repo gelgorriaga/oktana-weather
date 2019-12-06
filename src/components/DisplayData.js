@@ -2,9 +2,10 @@ import React from "react";
 
 const DisplayData = ({ city, ok, country, sunrise, sunset }) => (
   <>
-    {city && !ok && (
-      <p className="DisplayData__error">Please enter a valid city name.</p>
+    { !ok && (
+      <h1 className="DisplayData__error">Please enter a valid city name.</h1>
     )}
+
 
     {city && ok && (
       <div className="DisplayData__info">

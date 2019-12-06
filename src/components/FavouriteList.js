@@ -8,7 +8,7 @@ export class FavouriteList extends Component {
             return(
                 <div key={favourite}>
         
-                    <div className="FavList">{favourite}</div>
+                    <div className="FavList">{favourite}<button onClick={() => this.props.removeFavourite(favourite)}>Remove</button></div>
                 </div>
             );
         });
@@ -16,7 +16,14 @@ export class FavouriteList extends Component {
   render() {
     return (
     <div>
-        {this.renderList()}
+        {
+            (this.props.favourites.length === 0) 
+            ? 
+            <h1>There are no cities on the favourite list, please add some!</h1> 
+            : 
+            this.renderList()
+            }
+        
     </div>
     );}
 }

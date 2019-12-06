@@ -8,19 +8,21 @@ import { addFavourite, removeFavourite } from "../actions";
 export class Home extends Component{
   
  
-  renderButtons(city, isFavourite, removeFavourite, addFavourite){
-      if(city){
+  renderButtons(city, country, isFavourite, removeFavourite, addFavourite){
+      if(city && country){
+        let toBeAdded = `${city}, ${country}`;
         if(isFavourite){
-          return <button onClick={() => removeFavourite(city)}>Remove</button>;
+          return <button onClick={() => removeFavourite(toBeAdded)}>Remove</button>;
         }else{
-          return <button onClick={() => addFavourite(city)}>Add</button>;
+          return <button onClick={() => addFavourite(toBeAdded)}>Add</button>;
         }
       }
   }
   render(){
     
     const {sunrise, city, country, sunset, ok, getData, favourites, removeFavourite, addFavourite} = this.props;
-    let isFavourite = favourites.includes(city);
+    let toBeAdded = `${city}, ${country}`;
+    let isFavourite = favourites.includes(toBeAdded);
    
   return (
     <div>
@@ -35,7 +37,7 @@ export class Home extends Component{
             ok={ok}
           />
 
-          {this.renderButtons(city, isFavourite, removeFavourite,addFavourite)}
+          {this.renderButtons(city, country, isFavourite, removeFavourite, addFavourite)}
         </div>
       </div>
     </div>

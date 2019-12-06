@@ -8,6 +8,14 @@ body {
   height: 90vh;
 }
 
+h1{
+    color: #fff;
+    display: flex;
+    width: 90%;
+    justify-content: center;
+    padding: 1rem;
+}
+
 .flexDiv {
   display: flex;
   align-content: center;
@@ -143,7 +151,13 @@ button:active {
   color: #fff;
   font-weight: 200;
   display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 1rem;
+  justify-content: space-between;
+  margin: 2rem 5rem;
+ 
+}
+
+@media only screen and (max-width: 768px) {
+  .FavList {
+    margin: .5rem 1rem;
+  }
 }
