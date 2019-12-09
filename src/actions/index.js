@@ -1,13 +1,13 @@
-export const addFavourite = city =>{
+export const addFavorite = city =>{
     return{
-        type: 'ADD_FAVOURITE',
+        type: 'ADD_FAVORITE',
         payload: city
     };
 };
 
-export const removeFavourite = city =>{
+export const removeFavorite = city =>{
     return{
-        type: 'REMOVE_FAVOURITE',
+        type: 'REMOVE_FAVORITE',
         payload: city
     };
 };

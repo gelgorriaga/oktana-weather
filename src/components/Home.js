@@ -3,26 +3,26 @@ import Form from "./Form";
 import DisplayData from "./DisplayData";
 
 import { connect } from "react-redux";
-import { addFavourite, removeFavourite } from "../actions";
+import { addFavorite, removeFavorite } from "../actions";
 
 export class Home extends Component{
   
  
-  renderButtons(city, country, isFavourite, removeFavourite, addFavourite){
+  renderButtons(city, country, isFavorite, removeFavorite, addFavorite){
       if(city && country){
         let toBeAdded = `${city}, ${country}`;
-        if(isFavourite){
-          return <button onClick={() => removeFavourite(toBeAdded)}>Remove</button>;
+        if(isFavorite){
+          return <button onClick={() => removeFavorite(toBeAdded)}>Remove</button>;
         }else{
-          return <button onClick={() => addFavourite(toBeAdded)}>Add</button>;
+          return <button onClick={() => addFavorite(toBeAdded)}>Add</button>;
         }
       }
   }
   render(){
     
-    const {sunrise, city, country, sunset, ok, getData, favourites, removeFavourite, addFavourite} = this.props;
+    const {sunrise, city, country, sunset, ok, getData, favorites, removeFavorite, addFavorite} = this.props;
     let toBeAdded = `${city}, ${country}`;
-    let isFavourite = favourites.includes(toBeAdded);
+    let isFavorite = favorites.includes(toBeAdded);
    
   return (
     <div>
@@ -37,7 +37,7 @@ export class Home extends Component{
             ok={ok}
           />
 
-          {this.renderButtons(city, country, isFavourite, removeFavourite, addFavourite)}
+          {this.renderButtons(city, country, isFavorite, removeFavorite, addFavorite)}
         </div>
       </div>
     </div>
@@ -46,9 +46,9 @@ export class Home extends Component{
 }
 
 const mapStateToProps = state => {
-  return { favourites: state.favourites };
+  return { favorites: state.favorites };
 };
 
-export default connect(mapStateToProps, { addFavourite, removeFavourite })(
+export default connect(mapStateToProps, { addFavorite, removeFavorite })(
   Home
 );

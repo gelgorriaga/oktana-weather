@@ -12,7 +12,7 @@ const NavBar = () => {
         Chart
       </NavLink>
       <NavLink exact to="/favs" activeClassName="Navbar-active">
-        Favourites
+        Favorites
       </NavLink>
     </div>
   );

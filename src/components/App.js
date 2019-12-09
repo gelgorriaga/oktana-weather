@@ -4,7 +4,7 @@ import Chart from "./chart/Chart";
 import NavBar from "./NavBar";
 import Home from "./Home";
 import ChartForm from "./chart/ChartForm";
-import FavouriteList from './FavouriteList';
+import FavoriteList from './FavoriteList';
 const appid = "f4a064fab6279ff8911f853cad2d6eba";
 
 class App extends Component {
@@ -92,7 +92,7 @@ class App extends Component {
                 </div>
               )}
             />
-            <Route path="/favs" exact component={FavouriteList} />
+            <Route path="/favs" exact component={FavoriteList} />
           </Switch>
         </BrowserRouter>
       </div>

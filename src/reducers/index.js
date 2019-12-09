@@ -1,16 +1,16 @@
 import { combineReducers } from "redux";
 
-const favouriteReducer = (favourites = [], action) => {
+const favoriteReducer = (favorites = [], action) => {
   switch (action.type) {
-    case "ADD_FAVOURITE":
-      return [...favourites, action.payload];
-    case "REMOVE_FAVOURITE":
-      return favourites.filter(fav => fav !== action.payload);
+    case "ADD_FAVORITE":
+      return [...favorites, action.payload];
+    case "REMOVE_FAVORITE":
+      return favorites.filter(fav => fav !== action.payload);
     default:
-      return favourites;
+      return favorites;
   }
 };
 
 export default combineReducers({
-  favourites: favouriteReducer
+  favorites: favoriteReducer
 });
