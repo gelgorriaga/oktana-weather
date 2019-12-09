@@ -4,6 +4,7 @@ $font-family: "Open Sans", serif;
 $main-color: #2c3e50;
 $white: #fff;
 $value-colour: #f16051;
+$general-font-size: 0.9rem;
 $font-weights: (
   "light": 100,
   "medium": 200,
@@ -24,10 +25,56 @@ h1 {
   padding: 1rem;
 }
 
-.flexDiv {
-  display: flex;
-  align-content: center;
-  justify-content: center;
+select {
+  margin: 0 2rem;
+  background: $white;
+  width: 8rem;
+  padding: 5px;
+  font-size: $general-font-size;
+
+  #{&}option {
+    margin: 40px;
+    background: $white;
+    color: $white;
+    text-shadow: 0 1px 0 rgba(0, 0, 0, 0.4);
+  }
+}
+
+button {
+  border: 0;
+  padding: 8px 20px;
+  margin: 0 2rem;
+  border-radius: 2px;
+  letter-spacing: 1px;
+  font-size: $general-font-size;
+  cursor: pointer;
+  background-color: $value-colour;
+  color: $white;
+  font-weight: map-get($font-weights, "light");
+}
+
+button:active {
+  outline: none;
+}
+
+input[type="text"] {
+  background-color: transparent;
+  border: 0;
+  border-bottom: solid 1px $value-colour;
+  width: 50vw;
+  padding-bottom: 4px;
+  color: $white !important;
+  font-weight: map-get($font-weights, "light");
+  letter-spacing: 2px;
+  font-size: $general-font-size;
+  margin-bottom: 1rem;
+  outline: none;
+  text-align: center;
+}
+
+input:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0 30px $main-color inset;
+  -webkit-text-fill-color: $white !important;
 }
 
 .main {
@@ -38,9 +85,15 @@ h1 {
   margin: 0 auto;
 }
 
+.flexDiv {
+  display: flex;
+  align-content: center;
+  justify-content: center;
+}
+
 .form-container {
   background-color: $main-color;
-  padding-top: 5rem;
+  padding-top: 1rem;
   height: 100vh;
   width: 100vw;
   display: flex;
@@ -59,61 +112,9 @@ h1 {
   width: 100%;
 }
 
-select option {
-  margin: 40px;
-  background: $white;
-  color: $white;
-  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.4);
-}
-
-input[type="text"] {
-  background-color: transparent;
-  border: 0;
-  border-bottom: solid 1px $value-colour;
-  width: 50vw;
-  padding-bottom: 4px;
-  color: $white !important;
-  font-weight: map-get($font-weights, "light");
-  letter-spacing: 2px;
-  font-size: 20px;
-  margin-bottom: 1rem;
-  outline: none;
-  text-align: center;
-}
-
-select {
-  margin: 0 2rem;
-  background: $white;
-  width: 8rem;
-  padding: 5px;
-  font-size: 0.8rem;
-}
-
-input:-webkit-autofill {
-  -webkit-box-shadow: 0 0 0 30px $main-color inset;
-  -webkit-text-fill-color: $white !important;
-}
-
-button {
-  border: 0;
-  padding: 8px 20px;
-  margin: 0 2rem;
-  border-radius: 2px;
-  letter-spacing: 1px;
-  font-size: 15px;
-  cursor: pointer;
-  background-color: $value-colour;
-  color: $white;
-  font-weight: map-get($font-weights, "light");
-}
-
-button:active {
-  outline: none;
-}
-
 .DisplayData__info {
   width: 60%;
-  font-size: 20px;
+  font-size: $general-font-size;
   font-weight: map-get($font-weights, "medium");
   letter-spacing: 2px;
 }
