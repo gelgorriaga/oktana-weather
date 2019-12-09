@@ -1,14 +1,24 @@
 import React, { Component } from "react";
 import { Line } from "react-chartjs-2";
 import { connect } from "react-redux";
+import ChartForm from "./ChartForm";
 
 class Chart extends Component {
+  state = {
+    typeOfChart: "temperatureF"
+  };
+
+  getChart = e => {
+    e.preventDefault();
+    const typeOfChart = e.target.value;
+    this.setState({ typeOfChart: typeOfChart });
+  };
   render() {
     let date, hum, temp, tempCelsius, tempFahrenheit, pressure;
 
-    const {bringData} = this.props;
-    
-    if (Object.keys(bringData).length > 0) {
+    const { bringData } = this.props;
+    let isDataEmpty = Object.keys(bringData).length === 0;
+    if (!isDataEmpty) {
       console.log(bringData);
       date = bringData.list.map(d => d.dt_txt);
       hum = bringData.list.map(h => h.main.humidity);
@@ -19,7 +29,7 @@ class Chart extends Component {
     }
 
     let displayData = () => {
-      switch (this.props.typeOfChart) {
+      switch (this.state.typeOfChart) {
         case "temperatureF":
           return tempFahrenheit;
         case "temperatureC":
@@ -32,16 +42,19 @@ class Chart extends Component {
           return;
       }
     };
- 
+    if (isDataEmpty) {
+      return <h1>Please select a city first!</h1>;
+    }
     return (
-      <div className="Chart">
-       
+      <>
+        <ChartForm getChart={this.getChart} />
+        <div className="Chart">
           <Line
             data={{
               labels: date,
               datasets: [
                 {
-                  label: this.props.typeOfChart,
+                  label: this.state.typeOfChart,
                   fill: true,
                   data: displayData(),
                   backgroundColor: "#5F6368",
@@ -58,7 +71,7 @@ class Chart extends Component {
               },
               title: {
                 display: false,
-                text: `${this.props.typeOfChart} Chart`,
+                text: `${this.state.typeOfChart} Chart`,
                 fontSize: 50,
                 fontColor: "white"
               },
@@ -92,14 +105,13 @@ class Chart extends Component {
               }
             }}
           />
-        
-      </div>
+        </div>
+      </>
     );
   }
 }
 const mapStateToProps = state => {
   return { bringData: state.fetchData };
 };
-
 
 export default connect(mapStateToProps)(Chart);
