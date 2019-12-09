@@ -1,4 +1,6 @@
+
 import { combineReducers } from "redux";
+import { FETCH_WEATHER } from "../actions";
 
 const favoriteReducer = (favorites = [], action) => {
   switch (action.type) {
@@ -11,6 +13,18 @@ const favoriteReducer = (favorites = [], action) => {
   }
 };
 
+const fetchDataReducer = (state = {}, action) =>{
+  switch (action.type){
+    case FETCH_WEATHER:
+      console.log(action.payload);
+      return action.payload;
+      default: 
+      return state;
+  }
+};
+
 export default combineReducers({
+  fetchData: fetchDataReducer,
   favorites: favoriteReducer
 });
+

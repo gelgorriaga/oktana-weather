@@ -1,26 +1,29 @@
 import React, { Component } from "react";
 import { Line } from "react-chartjs-2";
+import { connect } from "react-redux";
 
 class Chart extends Component {
   render() {
-    let date, hum, temp, tempCelcius, tempFarenheit, pressure;
-    if (this.props.city) {
-      date = this.props.fetchedData.list.map(d => d.dt_txt);
-      hum = this.props.fetchedData.list.map(h => h.main.humidity);
-      temp = this.props.fetchedData.list.map(t => t.main.temp);
-      //temp = temp.slice(Math.floor(temp.length/2), temp.length );
-      //date = date.slice(Math.floor(date.length/2), date.length );
-      tempCelcius = temp.map(t => Math.floor(t - 273.15));
-      tempFarenheit = temp.map(t => Math.floor((t - 273.15) * (9 / 5) + 32));
-      pressure = this.props.fetchedData.list.map(t => t.main.pressure);
+    let date, hum, temp, tempCelsius, tempFahrenheit, pressure;
+
+    const {bringData} = this.props;
+    
+    if (Object.keys(bringData).length > 0) {
+      console.log(bringData);
+      date = bringData.list.map(d => d.dt_txt);
+      hum = bringData.list.map(h => h.main.humidity);
+      temp = bringData.list.map(t => t.main.temp);
+      tempCelsius = temp.map(t => Math.floor(t - 273.15));
+      tempFahrenheit = temp.map(t => Math.floor((t - 273.15) * (9 / 5) + 32));
+      pressure = bringData.list.map(t => t.main.pressure);
     }
 
     let displayData = () => {
       switch (this.props.typeOfChart) {
         case "temperatureF":
-          return tempFarenheit;
+          return tempFahrenheit;
         case "temperatureC":
-          return tempCelcius;
+          return tempCelsius;
         case "pressure":
           return pressure;
         case "humidity":
@@ -29,7 +32,7 @@ class Chart extends Component {
           return;
       }
     };
-    if(!this.props.city) return <h1>Please select a city</h1>
+ 
     return (
       <div className="Chart">
        
@@ -94,5 +97,9 @@ class Chart extends Component {
     );
   }
 }
+const mapStateToProps = state => {
+  return { bringData: state.fetchData };
+};
 
-export default Chart;
+
+export default connect(mapStateToProps)(Chart);

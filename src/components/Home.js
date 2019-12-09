@@ -1,54 +1,69 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 import Form from "./Form";
 import DisplayData from "./DisplayData";
 
 import { connect } from "react-redux";
 import { addFavorite, removeFavorite } from "../actions";
 
-export class Home extends Component{
-  
- 
-  renderButtons(city, country, isFavorite, removeFavorite, addFavorite){
-      if(city && country){
-        let toBeAdded = `${city}, ${country}`;
-        if(isFavorite){
-          return <button onClick={() => removeFavorite(toBeAdded)}>Remove</button>;
-        }else{
-          return <button onClick={() => addFavorite(toBeAdded)}>Add</button>;
-        }
+export class Home extends Component {
+  renderButtons(city, country, isFavorite, removeFavorite, addFavorite) {
+    if (city && country) {
+      let toBeAdded = `${city}, ${country}`;
+      if (isFavorite) {
+        return (
+          <button onClick={() => removeFavorite(toBeAdded)}>Remove</button>
+        );
+      } else {
+        return <button onClick={() => addFavorite(toBeAdded)}>Add</button>;
       }
+    }
   }
-  render(){
-    
-    const {sunrise, city, country, sunset, ok, getData, favorites, removeFavorite, addFavorite} = this.props;
-    let toBeAdded = `${city}, ${country}`;
-    let isFavorite = favorites.includes(toBeAdded);
-   
-  return (
-    <div>
-      <div className="flexDiv">
-        <div className="form-container">
-          <Form getData={getData} />
-          <DisplayData
-            sunrise={sunrise}
-            city={city}
-            country={country}
-            sunset={sunset}
-            ok={ok}
-          />
+  render() {
+    const { bringData, favorites, removeFavorite, addFavorite } = this.props;
+    const isDataEmpty = Object.keys(bringData).length === 0;
+    let cityName, countryName;
 
-          {this.renderButtons(city, country, isFavorite, removeFavorite, addFavorite)}
+    
+    
+
+    if (isDataEmpty) {
+      return (
+        <div className="flexDiv">
+          <div className="form-container">
+            <Form />
+          </div>
+        </div>
+      );
+    } else {
+      cityName = bringData.city.name;
+      countryName = bringData.city.country;
+    }
+
+    let toBeAdded = `${cityName}, ${countryName}`;
+    let isFavorite = favorites.includes(toBeAdded);
+    return (
+      <div>
+        <div className="flexDiv">
+          <div className="form-container">
+            <Form />
+            <DisplayData />
+
+            {this.renderButtons(
+              bringData.city.name,
+              bringData.city.country,
+              isFavorite,
+              removeFavorite,
+              addFavorite
+            )}
+          </div>
         </div>
       </div>
-    </div>
-  );
-};
+    );
+  }
 }
 
 const mapStateToProps = state => {
-  return { favorites: state.favorites };
+  return { bringData: state.fetchData, favorites: state.favorites };
 };
 
-export default connect(mapStateToProps, { addFavorite, removeFavorite })(
-  Home
-);
+export default connect(mapStateToProps, { addFavorite, removeFavorite })(Home);

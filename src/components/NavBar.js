@@ -11,7 +11,7 @@ const NavBar = () => {
       <NavLink exact to="/chart" activeClassName="Navbar-active">
         Chart
       </NavLink>
-      <NavLink exact to="/favs" activeClassName="Navbar-active">
+      <NavLink exact to="/favorites" activeClassName="Navbar-active">
         Favorites
       </NavLink>
     </div>
