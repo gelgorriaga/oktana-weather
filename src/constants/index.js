@@ -1,0 +1,6 @@
+export const APP_ID = "f4a064fab6279ff8911f853cad2d6eba";
+export const FETCH_WEATHER = "FETCH_WEATHER";
+export const ADD_FAVORITE = "ADD_FAVORITE";
+export const REMOVE_FAVORITE = "REMOVE_FAVORITE";
+export const FETCH_WEATHER_ERROR = "FETCH_WEATHER";
+export const FETCH_WEATHER_SUCCESS = "FETCH_WEATHER";

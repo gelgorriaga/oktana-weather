@@ -14,11 +14,12 @@ class Chart extends Component {
     this.setState({ typeOfChart: typeOfChart });
   };
   render() {
-    let date, hum, temp, tempCelsius, tempFahrenheit, pressure;
-
     const { bringData } = this.props;
+    let date, hum, temp, tempCelsius, tempFahrenheit, pressure;
+    let requestError = this.props.bringData === "ERROR";
     let isDataEmpty = Object.keys(bringData).length === 0;
-    if (!isDataEmpty) {
+
+    if (!isDataEmpty && !requestError) {
       date = bringData.list.map(d => d.dt_txt);
       hum = bringData.list.map(h => h.main.humidity);
       temp = bringData.list.map(t => t.main.temp);
@@ -41,7 +42,8 @@ class Chart extends Component {
           return;
       }
     };
-    if (isDataEmpty) {
+
+    if (isDataEmpty || requestError) {
       return <h1>Please select a city first!</h1>;
     }
     return (
@@ -66,7 +68,7 @@ class Chart extends Component {
             options={{
               maintainAspectRatio: false,
               animation: {
-                duration: 3000 // general animation time
+                duration: 3000 
               },
               title: {
                 display: false,
@@ -85,8 +87,6 @@ class Chart extends Component {
                 yAxes: [
                   {
                     ticks: {
-                      //beginAtZero: true
-
                       fontColor: "white"
                     }
                   }
@@ -94,8 +94,6 @@ class Chart extends Component {
                 xAxes: [
                   {
                     ticks: {
-                      //beginAtZero: true
-
                       fontColor: "white",
                       fontSize: 10
                     }

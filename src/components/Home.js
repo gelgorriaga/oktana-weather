@@ -23,10 +23,9 @@ export class Home extends Component {
     const isDataEmpty = Object.keys(bringData).length === 0;
     let cityName, countryName;
 
-    
-    
+    const shouldShowDisplayData = bringData !== "ERROR";
 
-    if (isDataEmpty) {
+    if (isDataEmpty && shouldShowDisplayData) {
       return (
         <div className="flexDiv">
           <div className="form-container">
@@ -34,10 +33,19 @@ export class Home extends Component {
           </div>
         </div>
       );
-    } else {
-      cityName = bringData.city.name;
-      countryName = bringData.city.country;
+    } else if (bringData === "ERROR") {
+      return (
+        <div className="flexDiv">
+          <div className="form-container">
+            <Form />
+            <h1>Please try with another city</h1>
+          </div>
+        </div>
+      );
     }
+
+    cityName = bringData.city.name;
+    countryName = bringData.city.country;
 
     let toBeAdded = `${cityName}, ${countryName}`;
     let isFavorite = favorites.includes(toBeAdded);
@@ -46,14 +54,19 @@ export class Home extends Component {
         <div className="flexDiv">
           <div className="form-container">
             <Form />
-            <DisplayData />
 
-            {this.renderButtons(
-              bringData.city.name,
-              bringData.city.country,
-              isFavorite,
-              removeFavorite,
-              addFavorite
+            {shouldShowDisplayData && (
+              <>
+                <DisplayData />
+
+                {this.renderButtons(
+                  bringData.city.name,
+                  bringData.city.country,
+                  isFavorite,
+                  removeFavorite,
+                  addFavorite
+                )}
+              </>
             )}
           </div>
         </div>
