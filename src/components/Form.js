@@ -4,7 +4,11 @@ import { fetchData } from "../actions";
 
 export class Form extends Component {
   state = {
-    keyword: Object.keys(this.props.bringData).length > 0 ? this.props.bringData.city.name : "" 
+    keyword:
+      Object.keys(this.props.bringData).length > 0
+        ? this.props.bringData.city.name
+        : "",
+        spinner: false
   };
 
   onValueChange = e => {
@@ -16,14 +20,11 @@ export class Form extends Component {
   };
 
   render() {
-    const { keyword } = this.state
-    const { fetchData } = this.props
-  
+    const { keyword } = this.state;
+    const { fetchData } = this.props;
     return (
       <div className="Form">
         <form onSubmit={this.handleSubmit}>
-
-
           <input
             type="text"
             placeholder="City name"
@@ -33,8 +34,7 @@ export class Form extends Component {
           />
 
           <button onClick={() => fetchData(keyword)}>GO!</button>
-
-                 </form>
+        </form>
       </div>
     );
   }
@@ -44,7 +44,7 @@ const mapStateToProps = state => {
   return { bringData: state.fetchData };
 };
 
-const mapDispatchToProps =  {
+const mapDispatchToProps = {
   fetchData
 };
 export default connect(mapStateToProps, mapDispatchToProps)(Form);
