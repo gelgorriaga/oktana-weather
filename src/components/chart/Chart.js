@@ -19,7 +19,6 @@ class Chart extends Component {
     const { bringData } = this.props;
     let isDataEmpty = Object.keys(bringData).length === 0;
     if (!isDataEmpty) {
-      console.log(bringData);
       date = bringData.list.map(d => d.dt_txt);
       hum = bringData.list.map(h => h.main.humidity);
       temp = bringData.list.map(t => t.main.temp);

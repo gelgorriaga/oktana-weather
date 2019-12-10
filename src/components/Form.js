@@ -4,7 +4,7 @@ import { fetchData } from "../actions";
 
 export class Form extends Component {
   state = {
-    keyword: ""
+    keyword: Object.keys(this.props.bringData).length > 0 ? this.props.bringData.city.name : "" 
   };
 
   onValueChange = e => {
@@ -17,9 +17,8 @@ export class Form extends Component {
 
   render() {
     const { keyword } = this.state
-    const { bringData, fetchData } = this.props
-    console.log('=> bringData', bringData)
-
+    const { fetchData } = this.props
+  
     return (
       <div className="Form">
         <form onSubmit={this.handleSubmit}>
@@ -30,6 +29,7 @@ export class Form extends Component {
             placeholder="City name"
             name="city"
             onChange={this.onValueChange}
+            value={keyword}
           />
 
           <button onClick={() => fetchData(keyword)}>GO!</button>

@@ -16,7 +16,6 @@ const favoriteReducer = (favorites = [], action) => {
 const fetchDataReducer = (state = {}, action) =>{
   switch (action.type){
     case FETCH_WEATHER:
-      console.log(action.payload);
       return action.payload;
       default: 
       return state;
