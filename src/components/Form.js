@@ -2,24 +2,6 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { fetchData } from "../actions";
 
-// const Form = ({city}) => (
-//   <div className="Form">
-//     <form>
-//       <input type="text" placeholder="City name" name="city" />
-
-//       <button onClick={fetchData(city)}>GO!</button>
-//     </form>
-//   </div>
-// );
-
-// const mapStateToProps = state =>{
-//   console.log('state', state);
-
-//   return { bringData: state.fetchData };
-//   };
-
-// import React, { Component } from 'react'
-
 export class Form extends Component {
   state = {
     keyword: ""
