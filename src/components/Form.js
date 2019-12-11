@@ -5,10 +5,11 @@ import { fetchData } from "../actions";
 export class Form extends Component {
   state = {
     keyword:
-      (Object.keys(this.props.bringData).length > 0 && this.props.bringData !=='ERROR')
-        ? this.props.bringData.city.name
-        : "",
-  }
+      Object.keys(this.props.bringData).length > 0 &&
+      this.props.bringData !== "ERROR"
+        ? this.props.bringData.city
+        : ""
+  };
   onValueChange = e => {
     this.setState({ keyword: e.target.value });
   };
@@ -39,7 +40,7 @@ export class Form extends Component {
 }
 
 const mapStateToProps = state => {
-  return { bringData: state.fetchData} ;
+  return { bringData: state.fetchData };
 };
 
 const mapDispatchToProps = {

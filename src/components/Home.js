@@ -6,7 +6,7 @@ import { connect } from "react-redux";
 import { addFavorite, removeFavorite } from "../actions";
 
 export class Home extends Component {
-  renderButtons(city, country, isFavorite, removeFavorite, addFavorite) {
+  renderButtons = (city, country, isFavorite, removeFavorite, addFavorite) => {
     if (city && country) {
       let toBeAdded = `${city}, ${country}`;
       if (isFavorite) {
@@ -17,58 +17,48 @@ export class Home extends Component {
         return <button onClick={() => addFavorite(toBeAdded)}>Add</button>;
       }
     }
-  }
-  render() {
-    const { bringData, favorites, removeFavorite, addFavorite } = this.props;
-    const isDataEmpty = Object.keys(bringData).length === 0;
-    let cityName, countryName;
+  };
 
-    const shouldShowDisplayData = bringData !== "ERROR";
-
+  renderForm = (isDataEmpty, shouldShowDisplayData, bringData, isFavorite) => {
     if (isDataEmpty && shouldShowDisplayData) {
+      return;
+    } else if (!shouldShowDisplayData) {
+      return <h1>Please try with another city</h1>;
+    } else {
       return (
-        <div className="flexDiv">
-          <div className="form-container">
-            <Form />
-          </div>
-        </div>
-      );
-    } else if (bringData === "ERROR") {
-      return (
-        <div className="flexDiv">
-          <div className="form-container">
-            <Form />
-            <h1>Please try with another city</h1>
-          </div>
-        </div>
+        <>
+          <DisplayData />
+
+          {this.renderButtons(
+            bringData.city,
+            bringData.country,
+            isFavorite,
+            this.props.removeFavorite,
+            this.props.addFavorite
+          )}
+        </>
       );
     }
+  };
 
-    cityName = bringData.city.name;
-    countryName = bringData.city.country;
-
-    let toBeAdded = `${cityName}, ${countryName}`;
+  render() {
+    //let cityName, countryName;
+    const { bringData, favorites } = this.props;
+    const { toBeAdded } = bringData;
+    const shouldShowDisplayData = bringData !== "ERROR";
+    const isDataEmpty = Object.keys(bringData).length === 0;
     let isFavorite = favorites.includes(toBeAdded);
+
     return (
-      <div>
-        <div className="flexDiv">
-          <div className="form-container">
-            <Form />
-
-            {shouldShowDisplayData && (
-              <>
-                <DisplayData />
-
-                {this.renderButtons(
-                  bringData.city.name,
-                  bringData.city.country,
-                  isFavorite,
-                  removeFavorite,
-                  addFavorite
-                )}
-              </>
-            )}
-          </div>
+      <div className="flexDiv">
+        <div className="form-container">
+          <Form />
+          {this.renderForm(
+            isDataEmpty,
+            shouldShowDisplayData,
+            bringData,
+            isFavorite
+          )}
         </div>
       </div>
     );

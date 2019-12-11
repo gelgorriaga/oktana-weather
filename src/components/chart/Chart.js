@@ -14,20 +14,6 @@ class Chart extends Component {
     this.setState({ typeOfChart: typeOfChart });
   };
   render() {
-    const { bringData } = this.props;
-    let date, hum, temp, tempCelsius, tempFahrenheit, pressure;
-    let requestError = this.props.bringData === "ERROR";
-    let isDataEmpty = Object.keys(bringData).length === 0;
-
-    if (!isDataEmpty && !requestError) {
-      date = bringData.list.map(d => d.dt_txt);
-      hum = bringData.list.map(h => h.main.humidity);
-      temp = bringData.list.map(t => t.main.temp);
-      tempCelsius = temp.map(t => Math.floor(t - 273.15));
-      tempFahrenheit = temp.map(t => Math.floor((t - 273.15) * (9 / 5) + 32));
-      pressure = bringData.list.map(t => t.main.pressure);
-    }
-
     let displayData = () => {
       switch (this.state.typeOfChart) {
         case "temperatureF":
@@ -37,9 +23,66 @@ class Chart extends Component {
         case "pressure":
           return pressure;
         case "humidity":
-          return hum;
+          return humidity;
         default:
           return;
+      }
+    };
+
+    const { bringData } = this.props;
+    const { date, humidity, tempCelsius, tempFahrenheit, pressure } = bringData;
+    let requestError = this.props.bringData === "ERROR";
+    let isDataEmpty = Object.keys(bringData).length === 0;
+
+    const data = {
+      labels: date,
+      datasets: [
+        {
+          label: this.state.typeOfChart,
+          fill: true,
+          data: displayData(),
+          backgroundColor: "#5F6368",
+          pointBackgroundColor: "#fff",
+          pointBorderColor: "red",
+          borderColor: "rgba(0,0,0,0.3)"
+        }
+      ]
+    };
+
+    const options = {
+      maintainAspectRatio: false,
+      animation: {
+        duration: 3000
+      },
+      title: {
+        display: false,
+        text: `${this.state.typeOfChart} Chart`,
+        fontSize: 50,
+        fontColor: "white"
+      },
+      legend: {
+        display: false,
+        position: "top",
+        labels: {
+          fontColor: "white"
+        }
+      },
+      scales: {
+        yAxes: [
+          {
+            ticks: {
+              fontColor: "white"
+            }
+          }
+        ],
+        xAxes: [
+          {
+            ticks: {
+              fontColor: "white",
+              fontSize: 10
+            }
+          }
+        ]
       }
     };
 
@@ -50,63 +93,13 @@ class Chart extends Component {
       <>
         <ChartForm getChart={this.getChart} />
         <div className="Chart">
-          <Line
-            data={{
-              labels: date,
-              datasets: [
-                {
-                  label: this.state.typeOfChart,
-                  fill: true,
-                  data: displayData(),
-                  backgroundColor: "#5F6368",
-                  pointBackgroundColor: "#fff",
-                  pointBorderColor: "red",
-                  borderColor: "rgba(0,0,0,0.3)"
-                }
-              ]
-            }}
-            options={{
-              maintainAspectRatio: false,
-              animation: {
-                duration: 3000 
-              },
-              title: {
-                display: false,
-                text: `${this.state.typeOfChart} Chart`,
-                fontSize: 50,
-                fontColor: "white"
-              },
-              legend: {
-                display: false,
-                position: "top",
-                labels: {
-                  fontColor: "white"
-                }
-              },
-              scales: {
-                yAxes: [
-                  {
-                    ticks: {
-                      fontColor: "white"
-                    }
-                  }
-                ],
-                xAxes: [
-                  {
-                    ticks: {
-                      fontColor: "white",
-                      fontSize: 10
-                    }
-                  }
-                ]
-              }
-            }}
-          />
+          <Line data={data} options={options} />
         </div>
       </>
     );
   }
 }
+
 const mapStateToProps = state => {
   return { bringData: state.fetchData };
 };

@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 export class DisplayData extends Component {
   render() {
     const { bringData } = this.props;
+    const { city, country, sunrise, sunset } = bringData;
     const isDataEmpty = Object.keys(bringData).length === 0;
 
     if (isDataEmpty) return null;
@@ -12,17 +13,17 @@ export class DisplayData extends Component {
       <div className="flexDiv">
         <div className="DisplayData__info">
           <p className="DisplayData__key">
-            City: <span className="value">{bringData.city.name}</span>
+            City: <span className="value">{city}</span>
           </p>
           <p className="DisplayData__key">
-            Country: <span className="value">{bringData.city.country}</span>
+            Country: <span className="value">{country}</span>
           </p>
           <p className="DisplayData__key">
             Sunrise:{" "}
-            <span className="value">{Date(bringData.city.sunrise)}</span>
+            <span className="value">{Date(sunrise)}</span>
           </p>
           <p className="DisplayData__key">
-            Sunset: <span className="value">{Date(bringData.city.sunset)}</span>
+            Sunset: <span className="value">{Date(sunset)}</span>
           </p>
         </div>
       </div>
