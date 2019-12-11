@@ -42,7 +42,7 @@ export class Home extends Component {
   };
 
   render() {
-    //let cityName, countryName;
+ 
     const { bringData, favorites } = this.props;
     const { toBeAdded } = bringData;
     const shouldShowDisplayData = bringData !== "ERROR";

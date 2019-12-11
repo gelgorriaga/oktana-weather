@@ -31,8 +31,8 @@ export class Form extends Component {
             onChange={this.onValueChange}
             value={keyword}
           />
-
           <button onClick={() => fetchData(keyword)}>GO!</button>
+         
         </form>
       </div>
     );
